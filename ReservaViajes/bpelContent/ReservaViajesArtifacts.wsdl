@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://reservaviajes.bpel.tps" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://ws.hotel.uniandes.edu.co/" name="ReservaViajes" targetNamespace="http://reservaviajes.bpel.tps">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="WsHotelPL">
+    <plnk:role name="WSHotelPL" portType="wsdl:WSHotel"/>
+  </plnk:partnerLinkType>
+    <import location="http://157.253.238.28:8080/HotelDeLosAlpesEA-war/WSHotelService?wsdl" namespace="http://ws.hotel.uniandes.edu.co/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://reservaviajes.bpel.tps">
+
+            <element name="ReservaViajesRequest">
+                <complexType>
+                    <sequence>
+                    	<element name="cliente" type="tns:Cliente"/>
+                    	<element maxOccurs="unbounded" name="viajes" type="tns:Viaje"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="ReservaViajesResponse">
+                <complexType>
+                    <sequence>
+                    	<element name="resp" type="string"/>
+                    	<element maxOccurs="unbounded" minOccurs="0" name="reservasViajes" type="tns:ReservaViaje"/>
+                    </sequence>
+                </complexType>
+            </element>
+        
+            <complexType name="Cliente">
+            	<sequence>
+            		<element name="nombres" type="string"/>
+            		<element name="apellidos" type="string"/>
+            		<element name="DocumentoIdentidad" type="string"/>
+            		<element name="TipoDocumentoID" type="string"/>
+            	</sequence>
+            </complexType>
+            
+            <complexType name="Ciudad">
+            	<sequence>
+            		<element name="nombre" type="string"/>
+            		<element name="pais" type="string"/>
+            	</sequence>
+            </complexType>
+            
+            <complexType name="Recorrido">
+            	<sequence>
+            		<element minOccurs="1" name="id" type="int"/>
+            		<element name="ciudadOrigen" type="tns:Ciudad"/>
+            		<element name="cidudadDestino" type="tns:Ciudad"/>
+            		<element name="fecha" type="date"/>
+            	</sequence>
+            </complexType>
+            
+            <complexType name="Viaje">
+            	<sequence>
+            		<element name="viajeIda" type="tns:Recorrido"/>
+            		<element name="viajeRegreso" type="tns:Recorrido"/>
+            		<element name="hotel" type="int"/>
+            		<element name="carro" type="int"/>
+            		<element name="numeroPersonas" type="int"/>
+            	</sequence>
+            </complexType>
+        
+            <complexType name="ReservaViaje">
+            	<sequence>
+            		<element name="idReserva" type="string"/>
+            		<element name="recorridoIda" type="tns:ReservaRecorrido"/>
+            		<element name="recorridoRegreso" type="tns:ReservaRecorrido"/>
+            		<element maxOccurs="1" minOccurs="0" name="reservaHotel" type="tns:ReservaHotel"/>
+            		<element maxOccurs="1" minOccurs="0" name="reservaCarro" type="tns:ReservaCarro"/>
+            		<element name="precioTotal" type="double"/>
+            	</sequence>
+            </complexType>
+        
+            <complexType name="ReservaRecorrido">
+            	<sequence>
+            		<element name="idVuelo" type="string"/>
+            		<element name="recorrido" type="tns:Recorrido"/>
+            		<element name="precio" type="double"/>
+            	</sequence>
+            </complexType>
+            
+            <complexType name="ReservaHotel">
+            	<sequence>
+            		<element name="idReserva" type="string"/>
+            		<element name="valor" type="double"/>
+            	</sequence>
+            </complexType>
+            
+            <complexType name="ReservaCarro">
+            	<sequence>
+            		<element name="idReserva" type="string"/>
+            		<element name="valor" type="double"/>
+            		<element name="tipoCarro" type="string"/>
+            	</sequence>
+            </complexType>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="ReservaViajesRequestMessage">
+        <part element="tns:ReservaViajesRequest" name="payload"/>
+    </message>
+    <message name="ReservaViajesResponseMessage">
+        <part element="tns:ReservaViajesResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the ReservaViajes BPEL process -->
+    <portType name="ReservaViajes">
+        <operation name="process">
+            <input message="tns:ReservaViajesRequestMessage"/>
+            <output message="tns:ReservaViajesResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="ReservaViajes">
+        <plnk:role name="ReservaViajesProvider" portType="tns:ReservaViajes"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="ReservaViajesBinding" type="tns:ReservaViajes">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://reservaviajes.bpel.tps/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="ReservaViajes">
+    	<port binding="tns:ReservaViajesBinding" name="ReservaViajesPort">
+    		<soap:address location="http://localhost:8080/ode/processes/ReservaViajes"/>
+    	</port>
+    </service>
+</definitions>
