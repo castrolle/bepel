@@ -65,12 +65,8 @@
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
   </extensions>
   <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.4"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
-  </extensions>
-  <extensions>
     <extendedObject href="ReservaViajes.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1394075926000"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1394160683000"/>
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@variables/@children.4"/>
@@ -98,27 +94,39 @@
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="164" y="19" width="-1" height="-1"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.1"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.1/@copy.0"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.1/@copy.1"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="253" y="19" width="-1" height="-1"/>
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.1"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="-14" y="16" width="-1" height="-1"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="-53" y="17" width="-1" height="-1"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.1/@copy.3"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.1/@copy.4"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.1/@activity"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.0"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.0/@copy.0"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.0/@copy.1"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.1/@activity/@copy.0"/>
@@ -131,29 +139,5 @@
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.1/@activity/@copy.2"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.1/@copy.3"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.1/@copy.4"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activities.0/@activity/@activities.0"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@variables/@children.6"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:VariableExtension"/>
-  </extensions>
-  <extensions>
-    <extendedObject href="ReservaViajes.bpel#//@variables/@children.7"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:VariableExtension"/>
   </extensions>
 </extensionmodel:ExtensionMap>

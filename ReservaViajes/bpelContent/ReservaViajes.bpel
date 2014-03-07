@@ -8,7 +8,6 @@
          xmlns:ns1="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://ws.hotel.uniandes.edu.co/">
 
     <!-- Import the client WSDL -->
-    <bpel:import namespace="http://ws.hotel.uniandes.edu.co/" location="http://157.253.238.28:8080/HotelDeLosAlpesEA-war/WSHotelService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
     <bpel:import location="ReservaViajesArtifacts.wsdl" namespace="http://reservaviajes.bpel.tps" 
 	        importType="http://schemas.xmlsoap.org/wsdl/" />
          
@@ -22,7 +21,6 @@
                      partnerLinkType="tns:ReservaViajes"
                      myRole="ReservaViajesProvider"
                      />
-        <bpel:partnerLink name="reservasHotel" partnerLinkType="tns:WsHotelPL" partnerRole="WSHotelPL"></bpel:partnerLink>
     </bpel:partnerLinks>
   
     <!-- ================================================================= -->         
@@ -43,8 +41,6 @@
         <bpel:variable name="temp" type="ns1:string"></bpel:variable>
         <bpel:variable name="reservaViajeI" type="tns:ReservaViaje"></bpel:variable>
         <bpel:variable name="reservaViajeVacia" type="tns:ReservaViaje"></bpel:variable>
-        <bpel:variable name="reservasHotelResponse" messageType="ns:reservarHotelResponse"></bpel:variable>
-        <bpel:variable name="reservasHotelRequest" messageType="ns:reservarHotel"></bpel:variable>
     </bpel:variables>
 
     <!-- ================================================================= -->         
@@ -153,7 +149,7 @@
                 <bpel:flow name="Flow"><bpel:if name="If_hotel">
                         <bpel:condition><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:hotel >0]]></bpel:condition>
                         <bpel:sequence>
-                            <bpel:invoke name="InvokeHotel" partnerLink="reservasHotel" operation="reservarHotel" portType="ns:WSHotel" inputVariable="reservasHotelRequest" outputVariable="reservasHotelResponse"></bpel:invoke>
+                            
                             <bpel:assign validate="yes" name="Assign_hotel">
                             <bpel:copy>
                                 <bpel:from>
@@ -244,7 +240,7 @@
                 </bpel:assign>
             </bpel:sequence>
         </bpel:while>
-        <bpel:empty name="FIX_ME-Add_Business_Logic_Here"></bpel:empty>
+        
         <!-- Generate reply to synchronous request -->
         <bpel:reply name="replyOutput" 
                partnerLink="client"
