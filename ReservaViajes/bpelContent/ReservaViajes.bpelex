@@ -66,7 +66,7 @@
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1394482788706"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1394483439779"/>
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@variables/@children.4"/>
@@ -98,7 +98,7 @@
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.0/@activity/@activities.1"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="-53" y="17" width="-1" height="-1"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ActivityExtension" x="306" y="32" width="-1" height="-1"/>
   </extensions>
   <extensions>
     <extendedObject href="ReservaViajes.bpel#//@activity/@activities.2/@activity/@activities.1/@copy.3"/>

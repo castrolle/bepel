@@ -252,7 +252,7 @@
                         </bpel:sequence>
                             
                     </bpel:if><bpel:if name="If_carro">
-                        <bpel:condition><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:hotel >0]]></bpel:condition>
+                        <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:carro > 0]]></bpel:condition>
                         <bpel:sequence>
                             <bpel:invoke name="InvokeCarro" partnerLink="ReservasCarro" operation="reservarCarro" portType="ns0:WS_ReservaCarro" inputVariable="ReservasCarroRequest" outputVariable="ReservasCarroResponse"><bpel:catch><bpel:sequence>
                                             <bpel:invoke name="InvokeCancelarCarro" partnerLink="ReservasCarro" operation="cancelarReserva" portType="ns0:WS_ReservaCarro" inputVariable="ReservasCarroRequest" outputVariable="ReservasCarroResponse"></bpel:invoke>
