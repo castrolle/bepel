@@ -7,6 +7,10 @@
      but you can define or import any XML Schema type and use them as part 
      of the message types.
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="WSHotelPL">
+    <plnk:role name="WSHotelPL" portType="wsdl:WSHotel"/>
+  </plnk:partnerLinkType>
+    <import location="http://157.253.238.28:8080/HotelDeLosAlpesEA-war/WSHotelService?wsdl" namespace="http://ws.hotel.uniandes.edu.co/"/>
     <types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://reservaviajes.bpel.tps">
 
