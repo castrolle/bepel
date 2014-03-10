@@ -5,9 +5,10 @@
          suppressJoinFailure="yes"
          xmlns:tns="http://reservaviajes.bpel.tps"
          xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
-         xmlns:ns1="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://ws.hotel.uniandes.edu.co/">
+         xmlns:ns1="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://ws.hotel.uniandes.edu.co/" xmlns:ns0="http://ws.aerolinea.uniandes.edu.co/">
 
     <!-- Import the client WSDL -->
+    <bpel:import namespace="http://ws.aerolinea.uniandes.edu.co/" location="http://157.253.238.28:8080/AeroLineaUniandes-war/WS_ReservaCarroService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
     <bpel:import namespace="http://ws.hotel.uniandes.edu.co/" location="http://157.253.238.28:8080/HotelDeLosAlpesEA-war/WSHotelService?wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
     <bpel:import location="ReservaViajesArtifacts.wsdl" namespace="http://reservaviajes.bpel.tps" 
 	        importType="http://schemas.xmlsoap.org/wsdl/" />
@@ -23,6 +24,7 @@
                      myRole="ReservaViajesProvider"
                      />
         <bpel:partnerLink name="ReservasHotel" partnerLinkType="tns:WSHotelPL" partnerRole="WSHotelPL"></bpel:partnerLink>
+        <bpel:partnerLink name="ReservasCarro" partnerLinkType="tns:WSCarroPL" partnerRole="WSCarroPL"></bpel:partnerLink>
     </bpel:partnerLinks>
   
     <!-- ================================================================= -->         
@@ -45,6 +47,8 @@
         <bpel:variable name="reservaViajeVacia" type="tns:ReservaViaje"></bpel:variable>
         <bpel:variable name="hotelRequest" element="ns:reservarHotel"></bpel:variable>
         <bpel:variable name="hotelResponse" element="ns:reservarHotelResponse"></bpel:variable>
+        <bpel:variable name="ReservasCarroResponse" messageType="ns0:reservarCarroResponse"></bpel:variable>
+        <bpel:variable name="ReservasCarroRequest" messageType="ns0:reservarCarro"></bpel:variable>
     </bpel:variables>
 
     <!-- ================================================================= -->         
@@ -150,7 +154,8 @@
         <bpel:while name="While_vieajes">
             <bpel:condition><![CDATA[$iterator <= count($input.payload/tns:viajes)]]></bpel:condition>
             <bpel:sequence name="reservas">
-                <bpel:flow name="Flow"><bpel:if name="If_hotel">
+                <bpel:scope name="Scope">
+                    <bpel:flow name="Flow"><bpel:if name="If_hotel">
                         <bpel:condition><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:hotel >0]]></bpel:condition>
                             
                             <bpel:sequence>
@@ -248,8 +253,11 @@
                             
                     </bpel:if><bpel:if name="If_carro">
                         <bpel:condition><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:hotel >0]]></bpel:condition>
-                        <bpel:assign validate="yes" name="Assign_carro">
-                            <bpel:copy>
+                        <bpel:sequence>
+                            <bpel:invoke name="InvokeCarro" partnerLink="ReservasCarro" operation="reservarCarro" portType="ns0:WS_ReservaCarro" inputVariable="ReservasCarroRequest" outputVariable="ReservasCarroResponse"><bpel:catch><bpel:sequence>
+                                            <bpel:invoke name="InvokeCancelarCarro" partnerLink="ReservasCarro" operation="cancelarReserva" portType="ns0:WS_ReservaCarro" inputVariable="ReservasCarroRequest" outputVariable="ReservasCarroResponse"></bpel:invoke>
+                                        </bpel:sequence></bpel:catch></bpel:invoke>
+                            <bpel:assign validate="yes" name="Assign_carro"><bpel:copy>
                                 <bpel:from>
                                     <bpel:literal xml:space="preserve">45</bpel:literal>
                                 </bpel:from>
@@ -273,8 +281,16 @@
                                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:reservaCarro/tns:tipoCarro]]></bpel:query>
                                 </bpel:to>
                             </bpel:copy>
-                        </bpel:assign>
+                        
+                            </bpel:assign>
+                        </bpel:sequence>
                     </bpel:if></bpel:flow>
+                    <bpel:variables>
+                        <bpel:variable name="ReservasCarroRequest" element="ns0:cancelarReserva"></bpel:variable>
+                        <bpel:variable name="ReservasCarroResponse" element="ns0:cancelarReservaResponse"></bpel:variable>
+                    </bpel:variables>
+                </bpel:scope>
+                
                 <bpel:assign validate="yes" name="concatenarCiudadesOrigen"><bpel:copy>
                     <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                         
