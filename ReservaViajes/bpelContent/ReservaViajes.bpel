@@ -148,7 +148,6 @@
             <bpel:sequence name="reservas">
                 <bpel:flow name="Flow"><bpel:if name="If_hotel">
                         <bpel:condition><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:hotel >0]]></bpel:condition>
-                        <bpel:sequence>
                             
                             <bpel:assign validate="yes" name="Assign_hotel">
                             <bpel:copy>
@@ -172,7 +171,6 @@
                             
                         </bpel:assign>
                             
-                        </bpel:sequence>
                     </bpel:if><bpel:if name="If_carro">
                         <bpel:condition><![CDATA[$input.payload/tns:viajes[(floor($iterator))]/tns:hotel >0]]></bpel:condition>
                         <bpel:assign validate="yes" name="Assign_carro">
